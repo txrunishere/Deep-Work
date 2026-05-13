@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+@layer base {
+  .primary-bg {
+    @apply bg-[#464554];
+  }
+  .primary-text {
+    @apply text-[#e4e1ed];
+  }
+}
