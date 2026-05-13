@@ -1,6 +1,17 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../context/auth-context";
 
 export const AuthLayout = () => {
+  const { session } = useAuth();
+
+  if (session === undefined) {
+    return null;
+  }
+
+  if (session) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="max-w-md mx-auto py-20 flex flex-col items-center">
       <div className="flex items-center flex-col gap-6">

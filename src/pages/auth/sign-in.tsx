@@ -1,13 +1,49 @@
 import { Mail, Lock } from "lucide-react";
 import { Button } from "../../components";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { supabase } from "../../utils/supabase";
+import { useState } from "react";
 
 export default function SignIn() {
-  const handleUserSignIn = (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
+
+  const handleUserSignIn = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+
+    const { error, data } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("Error signing in with Password:", error.message);
+      setEmail("");
+      setPassword("");
+      setError(error.message);
+      return;
+    }
+
+    if (data && data.user) navigate("/");
   };
 
-  const handleGoogleSignIn = () => {};
+  const handleGoogleSignIn = async () => {
+    setError("");
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      console.error("Error signing in with Google:", error.message);
+      setError(error.message);
+    }
+  };
 
   return (
     <div className="mx-auto w-full max-w-md px-4">
@@ -27,10 +63,13 @@ export default function SignIn() {
               <Mail size={20} className="shrink-0 text-gray-400" />
 
               <input
+                required
                 className="w-full bg-transparent text-white outline-none placeholder:text-gray-500"
                 type="email"
                 id="email"
                 placeholder="name@work.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>
@@ -48,17 +87,24 @@ export default function SignIn() {
               <Lock size={20} className="shrink-0 text-gray-400" />
 
               <input
+                required
                 className="w-full bg-transparent text-white outline-none placeholder:text-gray-500"
                 type="password"
                 id="password"
                 placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
 
           {/* Submit */}
-          <Button className="w-full">Sign In</Button>
+          <Button type="submit" className="w-full">
+            Sign In
+          </Button>
         </form>
+
+        <p className="text-sm text-red-400 text-center mt-2">{error}</p>
 
         {/* Divider */}
         <div className="my-6 h-px w-full rounded-full bg-gray-700" />
