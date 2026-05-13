@@ -5,6 +5,8 @@ import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <App />
+    <div className="flex-1 h-screen w-full primary-bg primary-text">
+      <App />
+    </div>
   </BrowserRouter>,
 );

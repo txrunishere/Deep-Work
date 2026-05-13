@@ -2,7 +2,7 @@
 
 @layer base {
   .primary-bg {
-    @apply bg-[#464554];
+    @apply bg-[#13131b];
   }
   .primary-text {
     @apply text-[#e4e1ed];

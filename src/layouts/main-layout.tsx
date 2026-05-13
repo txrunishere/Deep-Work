@@ -1,13 +1,22 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
 import { TopBar } from "../components";
+import { useAuth } from "../context/auth-context";
 
 export function MainLayout() {
+  const { session } = useAuth();
+
+  if (session === undefined) {
+    return <p>Loading...</p>;
+  }
+
+  if (!session) {
+    return <Navigate to={"/sign-in"} />;
+  }
+
   return (
     <>
-      <div className="flex-1 h-screen w-full primary-bg primary-text">
-        <TopBar />
-        <Outlet />
-      </div>
+      <TopBar />
+      <Outlet />
     </>
   );
 }
