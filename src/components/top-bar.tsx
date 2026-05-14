@@ -62,7 +62,7 @@ export const TopBar = () => {
             </Link>
           </div>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-6 md:flex">
             <Link to={"/insights"}>
               <img src={insightsIcon} alt="insights" />
             </Link>
