@@ -16,7 +16,7 @@ export function MainLayout() {
   return (
     <>
       <TopBar />
-      <main className="md:py-0 py-14">
+      <main className="py-14 md:py-0 md:max-w-4xl md:mx-auto">
         <Outlet />
       </main>
     </>

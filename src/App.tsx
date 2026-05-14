@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router";
-import { Home } from "./pages/root/";
+import { Home, Insights, NewHabit } from "./pages/root/";
 import { SignIn, SignUp } from "./pages/auth";
 import { MainLayout } from "./layouts/main-layout";
 import { AuthProvider } from "./context/auth-context";
 import { AuthLayout } from "./layouts/auth-layout";
 import AuthCallback from "./pages/auth/auth-callback";
-import Insights from "./pages/root/insights";
 
 function App() {
   return (
@@ -14,6 +13,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/insights" element={<Insights />} />
+          <Route path="/new-habit" element={<NewHabit />} />
         </Route>
 
         <Route element={<AuthLayout />}>
