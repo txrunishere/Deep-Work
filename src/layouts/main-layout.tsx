@@ -16,7 +16,9 @@ export function MainLayout() {
   return (
     <>
       <TopBar />
-      <Outlet />
+      <main className="md:py-0 py-14">
+        <Outlet />
+      </main>
     </>
   );
 }

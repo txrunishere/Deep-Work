@@ -5,6 +5,7 @@ import { MainLayout } from "./layouts/main-layout";
 import { AuthProvider } from "./context/auth-context";
 import { AuthLayout } from "./layouts/auth-layout";
 import AuthCallback from "./pages/auth/auth-callback";
+import Insights from "./pages/root/insights";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/insights" element={<Insights />} />
         </Route>
 
         <Route element={<AuthLayout />}>
